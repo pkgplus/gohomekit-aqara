@@ -2,11 +2,12 @@ package aqara
 
 import (
 	"github.com/brutella/hc/accessory"
-	"github.com/xuebing1110/gohomekit/myaccessory"
+	//"github.com/xuebing1110/gohomekit/myaccessory"
 	"github.com/xuebing1110/migateway"
 	"time"
 )
 
+/*
 func (this *Aqara) InitSwitchTest() {
 	for _, dev := range this.manager.Switchs {
 		info := accessory.Info{
@@ -38,7 +39,7 @@ func (this *Aqara) InitSwitchTest() {
 	}
 
 	return
-}
+}*/
 
 func (this *Aqara) InitSwitch() {
 	for _, dev := range this.manager.Switchs {
