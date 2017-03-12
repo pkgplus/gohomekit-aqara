@@ -3,7 +3,6 @@ package aqara
 import (
 	"github.com/brutella/hc/accessory"
 	"github.com/xuebing1110/gohomekit/myaccessory"
-	"log"
 )
 
 func (this *Aqara) InitTempHumi() {
@@ -11,6 +10,8 @@ func (this *Aqara) InitTempHumi() {
 		info := accessory.Info{
 			Name:         "Temperature",
 			Manufacturer: "Aqara",
+			SerialNumber: ht.Sid,
+			Model:        ht.Model,
 		}
 		acc := accessory.NewTemperatureSensor(info, 0, -20, 100, 0.1)
 		acc.TempSensor.CurrentTemperature.SetValue(ht.Temperature)
@@ -19,6 +20,8 @@ func (this *Aqara) InitTempHumi() {
 		info2 := accessory.Info{
 			Name:         "Humidity",
 			Manufacturer: "Aqara",
+			SerialNumber: ht.Sid,
+			Model:        ht.Model,
 		}
 		acc2 := myaccessory.NewHumiditySensor(info2, 0, 0, 100, 0.1)
 		acc2.HumiditySensor.CurrentRelativeHumidity.SetValue(ht.Humidity)
@@ -26,8 +29,9 @@ func (this *Aqara) InitTempHumi() {
 
 		//refresh
 		go func() {
-			for <-ht.ReportChan {
-				log.Printf("Temperature:%f, Humidity:%f\n", ht.Temperature, ht.Humidity)
+			for {
+				<-ht.ReportChan
+				LOGGER.Info("Temperature:%f, Humidity:%f", ht.Temperature, ht.Humidity)
 				acc.TempSensor.CurrentTemperature.SetValue(ht.Temperature)
 				acc2.HumiditySensor.CurrentRelativeHumidity.SetValue(ht.Humidity)
 			}

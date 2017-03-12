@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+func init() {
+	bridge.AddPlagForm(&Aqara{})
+}
+
 type Aqara struct {
 	*bridge.BasePlatForm
 	sid      string
@@ -42,6 +46,18 @@ func (this *Aqara) Init() (err error) {
 
 	//temp && humi sensor
 	this.InitTempHumi()
+
+	//motion sensor
+	this.InitMotion()
+
+	//plug outlet
+	this.InitPlug()
+
+	//switch
+	this.InitSwitch()
+
+	//magnet
+	this.InitMagnet()
 
 	return
 }
